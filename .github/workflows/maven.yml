@@ -15,6 +15,8 @@ jobs:
     runs-on: windows-2019
 
     steps:
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
     - uses: actions/checkout@v2
     - uses: ayltai/setup-graalvm@v1
       with:
@@ -22,10 +24,10 @@ jobs:
         graalvm-version: 20.3.0
         native-image: true
     - run: java -version
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
